@@ -4,7 +4,7 @@ Tags: footnote,footnotes
 Requires at least: 5.8
 Tested up to: 5.8.1
 Requires PHP: 7.0
-Stable tag: 20210919.1
+Stable tag: 20210919.2
 License: ?
 
 Adds a shortcode that creates footnotes in the_content and a footnote list at the end of the_content.

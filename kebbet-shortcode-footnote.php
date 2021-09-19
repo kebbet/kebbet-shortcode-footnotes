@@ -3,7 +3,7 @@
  * Plugin Name:       Kebbet plugins - Shortcode for footnotes
  * Plugin URI:        https://github.com/kebbet/kebbet-shortcode-footnotes
  * Description:       Adds a shortcode that creates footnotes in the content and a footnote list at the end of the_content.
- * Version:           20210917.01
+ * Version:           20210919.2
  * Author:            Erik Betshammar
  * Author URI:        https://verkan.se
  * Requires at least: 5.8
@@ -92,11 +92,15 @@ function list_footnotes( $content ) {
 	}
 
 	foreach ( $notes_content as $note_number => $footnote_content ) {
-		$footnote_content  = mb_replace( '<p>', '', $footnote_content ); // Remove paragraphs in title and footnote list.
-		$footnote_content  = mb_replace( '</p>', '<br /><br />', $footnote_content ); // Remove paragraphs in title and footnote list.
-		$source_link       = link_id( $note_number, true );
-		$footnote_content  = '<a href="' . esc_url( $source_link ) . '">&#8593;</a> ' . $footnote_content;
-		$notes_list       .= '<li id="' . esc_attr( link_slug() . '-' . $note_number ) . '">' . $footnote_content . '</li>';
+		$footnote_content = mb_replace( '<p>', '', $footnote_content ); // Remove paragraphs in title and footnote list.
+		$footnote_content = mb_replace( '</p>', '<br/><br/>', $footnote_content ); // Remove paragraphs in title and footnote list.
+
+		if ( true === BACKLINK ) {
+			$source_link      = link_id( $note_number, true );
+			$footnote_content = '<a href="' . esc_url( $source_link ) . '">&#8593;</a> ' . $footnote_content;
+		}
+
+		$notes_list .= '<li id="' . esc_attr( link_slug() . '-' . $note_number ) . '">' . $footnote_content . '</li>';
 	}
 
 	$list_content  = '<div class="footnotes-wrap">';
