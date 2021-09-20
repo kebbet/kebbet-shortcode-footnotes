@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Kebbet plugins - Shortcode: [footnote][/footnote]\n"
-"POT-Creation-Date: 2021-09-19 13:03+0200\n"
-"PO-Revision-Date: 2021-09-19 13:03+0200\n"
+"POT-Creation-Date: 2021-09-20 09:36+0200\n"
+"PO-Revision-Date: 2021-09-20 09:36+0200\n"
 "Last-Translator: Erik Betshammar <info@verkan.se>\n"
 "Language-Team: Erik Betshammar <info@verkan.se>\n"
 "Language: sv_SE\n"
@@ -21,26 +21,30 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: kebbet-shortcode-footnote.php:48
+#: inc/helpers.php:18
 msgctxt "Slug for the anchor links."
 msgid "footnote"
 msgstr "fotnot"
 
-#: kebbet-shortcode-footnote.php:101
+#: kebbet-shortcode-footnote.php:59
 msgid "Footnotes"
 msgstr "Fotnoter"
 
 #. Plugin Name of the plugin/theme
-msgid "Kebbet plugins - Shortcode: [fn][/fn]"
-msgstr "Kebbet plugins - Kortkod: [fn][/fn]"
+msgid "Kebbet plugins - Shortcode for footnotes"
+msgstr "Kebbet plugins - Kortkod för fotnoter"
 
 #. Plugin URI of the plugin/theme
 msgid "https://github.com/kebbet/kebbet-shortcode-footnotes"
 msgstr "https://github.com/kebbet/kebbet-shortcode-footnotes"
 
 #. Description of the plugin/theme
-msgid "Add a shortcode that creates a footnotes list."
-msgstr "Lägg till en kortkod som skapar en fotnotslista."
+msgid ""
+"Adds a shortcode that creates footnotes in the content and a footnote list "
+"at the end of the_content."
+msgstr ""
+"Lägger till en kortkod som skapar fotnoter i innehållet och en "
+"fotnotslista i slutet av the_content."
 
 #. Author of the plugin/theme
 msgid "Erik Betshammar"
