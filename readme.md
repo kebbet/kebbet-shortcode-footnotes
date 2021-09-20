@@ -8,3 +8,7 @@ Use like this `[fn]The footnote content[/fn]`. Automatic numbering without any o
 * `kebbet_shortcode_footnote_slug` Modify the slug in the links.
 * `kebbet_shortcode_footnote_list_title` Modify the list header.
 
+# Author
+- Erik Betshammar
+- [@kebbet](https://github.com/kebbet)
+- [verkan.se](https://verkan.se)
