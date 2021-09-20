@@ -16,8 +16,11 @@ Adds a footnote shortcode without a GUI for the user to adjust the behavior.
 Use like this `[fn]The footnote content[/fn]`. Automatic numbering without any options. One set of notes per post.
 
 ## Filters
+* `kebbet_shortcode_footnote_note_class` Change the sup-note class.
 * `kebbet_shortcode_footnote_slug` Modify the slug in the links.
 * `kebbet_shortcode_footnote_list_title` Modify the list header.
+* `kebbet_shortcode_footnote_list_title_tag` Change the title tag (header level) for the list.
+* `kebbet_shortcode_footnote_list_wrap_class` Modify the wrapper class for the list section.
 
 == Changelog ==
 = 20210920.2 =

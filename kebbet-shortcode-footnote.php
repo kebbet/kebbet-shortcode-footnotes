@@ -57,8 +57,8 @@ function list_footnotes( $content ) {
 
 	$notes_list = '';
 	$title      = apply_filters( 'kebbet_shortcode_footnote_list_title', __( 'Footnotes', 'kebbet-shortcode-footnotes' ) );
-	$title_tag  = apply_filters( 'kebbet_shortcode_footnote_list_title_tag','h3' );
-	$wrap_class = apply_filters( 'kebbet_shortcode_footnote_list_wrap_class','footnotes-wrap' );
+	$title_tag  = apply_filters( 'kebbet_shortcode_footnote_list_title_tag', 'h3' );
+	$wrap_class = apply_filters( 'kebbet_shortcode_footnote_list_wrap_class', 'footnotes-wrap' );
 
 	if ( is_admin() ) {
 		return $content;
