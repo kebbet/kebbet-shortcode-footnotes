@@ -14,14 +14,15 @@
 
 namespace kebbet\shortcode\footnotes;
 
-const SHORTCODE = 'fn'; // apply_filters( 'kebbet_shortcode_footnote_name', 'fn' );
-const TITLEATTR = true;
-const BACKLINK  = false;
-
 /**
  * Include helper functions.
  */
 require_once plugin_dir_path( __FILE__ ) . 'inc/helpers.php';
+
+/**
+ * Include settings functions.
+ */
+require_once plugin_dir_path( __FILE__ ) . 'inc/settings.php';
 
 /**
  * Hook into the `init` action
@@ -43,7 +44,7 @@ function load_textdomain() {
  * Register the shortcode and filter the_content.
  */
 function register() {
-	add_shortcode( SHORTCODE, __NAMESPACE__ . '\replace_shortcode_with_sup' );
+	add_shortcode( settings\shortcode(), __NAMESPACE__ . '\replace_shortcode_with_sup' );
 	add_filter( 'the_content', __NAMESPACE__ . '\list_footnotes', 12 );
 }
 
@@ -73,7 +74,7 @@ function list_footnotes( $content ) {
 		$footnote_content = helpers\strip_paragraph( $footnote_content );
 		$reference        = helpers\link_id( $note_number, true, false );
 
-		if ( true === BACKLINK ) {
+		if ( true === settings\back_link() ) {
 			$source_link      = helpers\link_id( $note_number, false, true );
 			$footnote_content = '<a href="' . esc_url( $source_link ) . '">&#8593;</a> ' . $footnote_content;
 		}
@@ -87,7 +88,9 @@ function list_footnotes( $content ) {
 	$list_content .= $notes_list;
 	$list_content .= '</ol>';
 	$list_content .= '</div>';
-	$content      .= wp_kses_post( $list_content );
+
+	// Append the list.
+	$content .= wp_kses_post( $list_content );
 
 	return $content;
 }
@@ -104,15 +107,17 @@ function get_post_footnotes() {
 	// Use $post since the_content is modified and the shortcodes are removed.
 	global $post;
 
-	if ( ! has_shortcode( $post->post_content, SHORTCODE ) ) {
+	$code  = settings\shortcode();
+	$notes = array();
+
+	if ( ! has_shortcode( $post->post_content, $code ) ) {
 		return false;
 	}
 
 	/**
 	 * @source https://stackoverflow.com/a/32525101
 	 */
-	$pattern = get_shortcode_regex( array( SHORTCODE ) );
-	$notes   = array();
+	$pattern = get_shortcode_regex( array( $code ) );
 
 	if ( preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches ) ) {
 		if ( ! $matches ) {
@@ -139,6 +144,7 @@ function replace_shortcode_with_sup( $attributes, $content ) {
 	global $footnote_count;
 
 	$attributes  = '';
+	$sup_id      = '';
 	$target_post = helpers\get_post_scope_id();
 	$content     = do_shortcode( $content ); // Render out any shortcode within the contents.
 	$first_item  = ! isset( $footnote_count[$target_post] );
@@ -153,16 +159,20 @@ function replace_shortcode_with_sup( $attributes, $content ) {
 	$footnote_count[$target_post]['ref'][] = $note_number;
 
 	// Add optional title attr to link element.
-	if ( true === TITLEATTR ) {
+	if ( true === settings\title_attributes() ) {
 		$content    = helpers\strip_paragraph( $content );
 		$title      = str_replace( '"', '&quot;', strip_tags( $content ) );
 		$attributes = ' title="' . esc_attr( $title ) . '"';
 	}
 
+	if ( true === settings\back_link() ) {
+		$source_id = helpers\link_id( $note_number, false, false );
+		$sup_id    = ' id="' . esc_attr( $source_id ) . '"';
+	}
+
 	$sup_class    = apply_filters( 'kebbet_shortcode_footnote_note_class', 'footnotes-footnote' );
 	$note_link    = helpers\link_id( $note_number, true, true );
-	$source_id    = helpers\link_id( $note_number, false, false );
-	$sup_content  = '<sup id="' . esc_attr( $source_id ) . '" class="' . esc_attr( $sup_class ) . '">';
+	$sup_content  = '<sup' . $sup_id . ' class="' . esc_attr( $sup_class ) . '">';
 	$sup_content .= '<a href="' . esc_url( $note_link ) . '"' . $attributes . '>' . esc_attr( $note_number ) . '</a>';
 	$sup_content .= '</sup>';
 
