@@ -16,7 +16,7 @@ namespace kebbet\shortcode\footnotes;
 
 const SHORTCODE = 'fn'; // apply_filters( 'kebbet_shortcode_footnote_name', 'fn' );
 const TITLEATTR = true;
-const BACKLINK  = true;
+const BACKLINK  = false;
 
 /**
  * Include helper functions.
@@ -57,6 +57,8 @@ function list_footnotes( $content ) {
 
 	$notes_list = '';
 	$title      = apply_filters( 'kebbet_shortcode_footnote_list_title', __( 'Footnotes', 'kebbet-shortcode-footnotes' ) );
+	$title_tag  = apply_filters( 'kebbet_shortcode_footnote_list_title_tag','h3' );
+	$wrap_class = apply_filters( 'kebbet_shortcode_footnote_list_wrap_class','footnotes-wrap' );
 
 	if ( is_admin() ) {
 		return $content;
@@ -76,11 +78,11 @@ function list_footnotes( $content ) {
 			$footnote_content = '<a href="' . esc_url( $source_link ) . '">&#8593;</a> ' . $footnote_content;
 		}
 
-		$notes_list .= '<li id="' . esc_attr( $reference ) . '">' . $footnote_content . '</li>';
+		$notes_list .= '<li id="' . esc_attr( $reference ) . '"><span>' . $footnote_content . '</span></li>';
 	}
 
-	$list_content  = '<div class="footnotes-wrap">';
-	$list_content .= '<h3>' . $title . '</h3>';
+	$list_content  = '<div class="' . esc_attr( $wrap_class ) . '">';
+	$list_content .= '<' . $title_tag . '>' . $title . '</' . $title_tag . '>';
 	$list_content .= '<ol class="footnotes-list">';
 	$list_content .= $notes_list;
 	$list_content .= '</ol>';
