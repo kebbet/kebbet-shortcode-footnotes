@@ -49,10 +49,10 @@ function register() {
 }
 
 /**
- * Display the footnote list.
+ * Display the footnote list. Return source content or modified content.
  *
  * @param string $content The original content of a post.
- * @return string The modified content.
+ * @return string
  */
 function list_footnotes( $content ) {
 
@@ -97,8 +97,11 @@ function list_footnotes( $content ) {
 
 /**
  * Get the footnotes and return them in an array with the note number as key.
+ * - False if no footnotes in the content.
  *
  * @global $post
+ *
+ * @source https://stackoverflow.com/a/32525101
  *
  * @return false|array
  */
@@ -114,9 +117,6 @@ function get_post_footnotes() {
 		return false;
 	}
 
-	/**
-	 * @source https://stackoverflow.com/a/32525101
-	 */
 	$pattern = get_shortcode_regex( array( $code ) );
 
 	if ( preg_match_all( '/'. $pattern .'/s', $post->post_content, $matches ) ) {
@@ -141,6 +141,7 @@ function get_post_footnotes() {
  */
 function replace_shortcode_with_sup( $attributes, $content ) {
 
+	// Count number of notes in each post.
 	global $footnote_count;
 
 	$attributes  = '';
@@ -158,20 +159,23 @@ function replace_shortcode_with_sup( $attributes, $content ) {
 
 	$footnote_count[$target_post]['ref'][] = $note_number;
 
-	// Add optional title attr to link element.
+	// Add optional title attribute to link element.
 	if ( true === settings\title_attributes() ) {
 		$content    = helpers\strip_paragraph( $content );
 		$title      = str_replace( '"', '&quot;', strip_tags( $content ) );
 		$attributes = ' title="' . esc_attr( $title ) . '"';
 	}
 
+	// Add back links if enabled.
 	if ( true === settings\back_link() ) {
 		$source_id = helpers\link_id( $note_number, false, false );
 		$sup_id    = ' id="' . esc_attr( $source_id ) . '"';
 	}
 
-	$sup_class    = apply_filters( 'kebbet_shortcode_footnote_note_class', 'footnotes-footnote' );
-	$note_link    = helpers\link_id( $note_number, true, true );
+	$sup_class = apply_filters( 'kebbet_shortcode_footnote_note_class', 'footnotes-footnote' );
+	$note_link = helpers\link_id( $note_number, true, true );
+
+	// Build the `sup`-element.
 	$sup_content  = '<sup' . $sup_id . ' class="' . esc_attr( $sup_class ) . '">';
 	$sup_content .= '<a href="' . esc_url( $note_link ) . '"' . $attributes . '>' . esc_attr( $note_number ) . '</a>';
 	$sup_content .= '</sup>';

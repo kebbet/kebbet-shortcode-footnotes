@@ -15,7 +15,7 @@ namespace kebbet\shortcode\footnotes\helpers;
  * @param int  $num The footnote number.
  * @param bool $up Wether the string is used as the up reference or not.
  * @param bool $target Wether the string is used as a target or not.
- * @return string
+ * @return false|string
  */
 function link_id( $num, $up = false, $target = false ) {
 
@@ -66,7 +66,7 @@ function get_post_scope_id() {
 }
 
 /**
- * Multibyte version of str_replace
+ * Multi byte version of str_replace
  *
  * @source https://stackoverflow.com/a/3786018
  *
@@ -74,7 +74,7 @@ function get_post_scope_id() {
  * @param string $replace Expression to replace with.
  * @param string $subject The string to search in.
  * @param int    $count
- * @return string
+ * @return false|string
  */
 function mb_replace( $search, $replace, $subject, &$count=0 ) {
 	if (!is_array($search) && is_array($replace)) {
