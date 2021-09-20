@@ -12,6 +12,8 @@ namespace kebbet\shortcode\footnotes\settings;
 /**
  * Return the shortcode name.
  *
+ * @since 20210920.3
+ *
  * @return string
  */
 function shortcode() {
@@ -23,6 +25,8 @@ function shortcode() {
 /**
  * Return setting for wether or not to add title attribute to links.
  *
+ * @since 20210920.3
+ *
  * @return bool
  */
 function title_attributes() {
@@ -33,6 +37,8 @@ function title_attributes() {
 
 /**
  * Return setting for wether or not to allow and display `back`-links to source note.
+ *
+ * @since 20210920.3
  *
  * @return bool
  */
