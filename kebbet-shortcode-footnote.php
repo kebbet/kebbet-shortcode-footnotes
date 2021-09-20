@@ -3,7 +3,7 @@
  * Plugin Name:       Kebbet plugins - Shortcode for footnotes
  * Plugin URI:        https://github.com/kebbet/kebbet-shortcode-footnotes
  * Description:       Adds a shortcode that creates footnotes in the content and a footnote list at the end of the_content.
- * Version:           20210920.1
+ * Version:           20210920.2
  * Author:            Erik Betshammar
  * Author URI:        https://verkan.se
  * Requires at least: 5.8
@@ -69,13 +69,14 @@ function list_footnotes( $content ) {
 
 	foreach ( $notes_content as $note_number => $footnote_content ) {
 		$footnote_content = helpers\strip_paragraph( $footnote_content );
+		$reference        = helpers\link_id( $note_number, true, false );
 
 		if ( true === BACKLINK ) {
-			$source_link      = helpers\link_id( $note_number, true );
+			$source_link      = helpers\link_id( $note_number, false, true );
 			$footnote_content = '<a href="' . esc_url( $source_link ) . '">&#8593;</a> ' . $footnote_content;
 		}
 
-		$notes_list .= '<li id="' . esc_attr( helpers\link_slug() . '-' . $note_number ) . '">' . $footnote_content . '</li>';
+		$notes_list .= '<li id="' . esc_attr( $reference ) . '">' . $footnote_content . '</li>';
 	}
 
 	$list_content  = '<div class="footnotes-wrap">';
@@ -157,8 +158,8 @@ function replace_shortcode_with_sup( $attributes, $content ) {
 	}
 
 	$sup_class    = 'footnotes-footnote';
-	$note_link    = '#' . helpers\link_slug() . '-' . esc_attr( $note_number );
-	$source_id    = helpers\link_id( $note_number );
+	$note_link    = helpers\link_id( $note_number, true, true );
+	$source_id    = helpers\link_id( $note_number, false, false );
 	$sup_content  = '<sup id="' . esc_attr( $source_id ) . '" class="' . esc_attr( $sup_class ) . '">';
 	$sup_content .= '<a href="' . esc_url( $note_link ) . '"' . $attributes . '>' . esc_attr( $note_number ) . '</a>';
 	$sup_content .= '</sup>';

@@ -10,29 +10,28 @@
 namespace kebbet\shortcode\footnotes\helpers;
 
 /**
- * Return the translatable link slug.
- *
- * @return string
- */
-function link_slug() {
-	$string = _x( 'footnote', 'Slug for the anchor links.', 'kebbet-shortcode-footnotes' );
-	$string = apply_filters( 'kebbet_shortcode_footnote_slug', $string );
-	return $string;
-}
-
-/**
  * One place to set link ids and matching targets.
  *
  * @param int  $num The footnote number.
+ * @param bool $up Wether the string is used as the up reference or not.
  * @param bool $target Wether the string is used as a target or not.
  * @return string
  */
-function link_id( $num, $target = false ) {
+function link_id( $num, $up = false, $target = false ) {
+
 	if ( ! $num ) {
 		return false;
 	}
 
-	$string = link_slug() . '-id-' . esc_attr( $num );
+	$slug = _x( 'footnote', 'Slug for the anchor links.', 'kebbet-shortcode-footnotes' );
+	$slug = apply_filters( 'kebbet_shortcode_footnote_slug', $slug );
+
+	if ( true === $up ) {
+		$string = $slug . '-' . esc_attr( $num );
+	} else {
+		$string = $slug . '-id-' . esc_attr( $num );
+	}
+
 	if ( true === $target ) {
 		$string = '#' . $string;
 	}
