@@ -157,7 +157,7 @@ function replace_shortcode_with_sup( $attributes, $content ) {
 		$attributes = ' title="' . esc_attr( $title ) . '"';
 	}
 
-	$sup_class    = 'footnotes-footnote';
+	$sup_class    = apply_filters( 'kebbet_shortcode_footnote_note_class', 'footnotes-footnote' );
 	$note_link    = helpers\link_id( $note_number, true, true );
 	$source_id    = helpers\link_id( $note_number, false, false );
 	$sup_content  = '<sup id="' . esc_attr( $source_id ) . '" class="' . esc_attr( $sup_class ) . '">';
