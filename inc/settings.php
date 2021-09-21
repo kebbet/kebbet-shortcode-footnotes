@@ -9,6 +9,8 @@
 
 namespace kebbet\shortcode\footnotes\settings;
 
+defined( 'ABSPATH' ) or exit;
+
 /**
  * Return the shortcode name.
  *

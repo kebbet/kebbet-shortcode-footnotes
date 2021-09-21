@@ -9,6 +9,8 @@
 
 namespace kebbet\shortcode\footnotes\helpers;
 
+defined( 'ABSPATH' ) or exit;
+
 /**
  * One place to set link ids and matching targets.
  *
