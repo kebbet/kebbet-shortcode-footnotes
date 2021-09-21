@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) or exit;
  * @param string $content    The content of each shortcode.
  * @return string
  */
-function replace_shortcode_with_sup( $attributes, $content ) {
+function replace_content_with_sup( $attributes, $content ) {
 
 	// Count number of notes in each post.
 	global $footnote_count;

@@ -17,12 +17,13 @@ defined( 'ABSPATH' ) or exit;
  * @param string $content The original content of a post.
  * @return string
  */
-function list_footnotes( $content ) {
+function display( $content ) {
 
-	$notes_list = '';
-	$title      = apply_filters( 'kebbet_shortcode_footnote_list_title', __( 'Footnotes', 'kebbet-shortcode-footnotes' ) );
-	$title_tag  = apply_filters( 'kebbet_shortcode_footnote_list_title_tag', 'h3' );
-	$wrap_class = apply_filters( 'kebbet_shortcode_footnote_list_wrap_class', 'footnotes-wrap' );
+	$notes_list  = '';
+	$title       = apply_filters( 'kebbet_shortcode_footnote_list_title', __( 'Footnotes', 'kebbet-shortcode-footnotes' ) );
+	$title_tag   = apply_filters( 'kebbet_shortcode_footnote_list_title_tag', 'h3' );
+	$wrap_class  = apply_filters( 'kebbet_shortcode_footnote_list_wrap_class', 'footnotes-wrap' );
+	$back_symbol = apply_filters( 'kebbet_shortcode_footnote_list_back_symbol', '&#8593;' );
 
 	if ( is_admin() ) {
 		return $content;
@@ -39,7 +40,7 @@ function list_footnotes( $content ) {
 
 		if ( true === \kebbet\shortcode\footnotes\settings\back_link() ) {
 			$source_link      = \kebbet\shortcode\footnotes\helpers\link_id( $note_number, false, true );
-			$footnote_content = '<a href="' . esc_url( $source_link ) . '">&#8593;</a> ' . $footnote_content;
+			$footnote_content = '<a href="' . esc_url( $source_link ) . '">' . esc_attr( $back_symbol ) . '</a> ' . $footnote_content;
 		}
 
 		$notes_list .= '<li id="' . esc_attr( $reference ) . '"><span>' . $footnote_content . '</span></li>';

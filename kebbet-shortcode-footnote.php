@@ -3,7 +3,7 @@
  * Plugin Name:       Kebbet plugins - Shortcode for footnotes
  * Plugin URI:        https://github.com/kebbet/kebbet-shortcode-footnotes
  * Description:       Adds a shortcode that creates footnotes in the content and a footnote list at the end of the_content.
- * Version:           20210921.1
+ * Version:           20210921.2
  * Author:            Erik Betshammar
  * Author URI:        https://verkan.se
  * Text Domain        kebbet-shortcode-footnotes
@@ -54,6 +54,6 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\plugin_loaded', 0 );
  * Register the shortcode and filter the_content.
  */
 function register() {
-	add_shortcode( settings\shortcode(), __NAMESPACE__ . '\shortcode\replace_shortcode_with_sup' );
-	add_filter( 'the_content', __NAMESPACE__ . '\listing\list_footnotes', 12 );
+	add_shortcode( settings\shortcode(), __NAMESPACE__ . '\shortcode\replace_content_with_sup' );
+	add_filter( 'the_content', __NAMESPACE__ . '\listing\display', 12 );
 }

@@ -12,6 +12,7 @@ Use like this `[fn]The footnote content[/fn]`. Automatic numbering without any o
 - `kebbet_shortcode_footnote_list_title` Modify the list header.
 - `kebbet_shortcode_footnote_list_title_tag` Change the title tag (header level) for the list.
 - `kebbet_shortcode_footnote_list_back_link` Enable or disable link back to source.
+- `kebbet_shortcode_footnote_list_back_symbol` Change the symbol in the back link.
 - `kebbet_shortcode_footnote_list_wrap_class` Modify the wrapper class for the list section.
 
 ## Author
