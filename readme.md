@@ -14,7 +14,7 @@ Use like this `[fn]The footnote content[/fn]`. Automatic numbering without any o
 - `kebbet_shortcode_footnote_list_back_link` Enable or disable link back to source.
 - `kebbet_shortcode_footnote_list_wrap_class` Modify the wrapper class for the list section.
 
-# Author
+## Author
 - Erik Betshammar
 - [@kebbet](https://github.com/kebbet)
 - [verkan.se](https://verkan.se)
