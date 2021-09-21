@@ -36,7 +36,7 @@ function display( $content ) {
 
 	foreach ( $notes_content as $note_number => $footnote_content ) {
 		$footnote_content = \kebbet\shortcode\footnotes\helpers\strip_paragraph( $footnote_content );
-		$reference        =\kebbet\shortcode\footnotes\ helpers\link_id( $note_number, true, false );
+		$reference        = \kebbet\shortcode\footnotes\helpers\link_id( $note_number, true, false );
 
 		if ( true === \kebbet\shortcode\footnotes\settings\back_link() ) {
 			$source_link      = \kebbet\shortcode\footnotes\helpers\link_id( $note_number, false, true );
