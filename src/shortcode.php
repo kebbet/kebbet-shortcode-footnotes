@@ -58,5 +58,5 @@ function replace_content_with_sup( $attributes, $content ) {
 	$sup_content .= '<a href="' . esc_url( $note_link ) . '"' . $attributes . '>' . esc_attr( $note_number ) . '</a>';
 	$sup_content .= '</sup>';
 
-	return $content;
+	return $sup_content;
 }
