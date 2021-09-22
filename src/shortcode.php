@@ -12,6 +12,45 @@ namespace kebbet\shortcode\footnotes\shortcode;
 defined( 'ABSPATH' ) or exit;
 
 /**
+ * Count number of footnotes and replace content between the shortcode tags.
+ *
+ * @param array  $attributes The attributes.
+ * @param string $content    The content of each shortcode.
+ * @return string
+ */
+function replace_content_with_sup( $attributes, $content ) {
+	$note_number = counter();
+	$sup_content = display( $note_number, $content );
+
+	return $sup_content;
+}
+
+/**
+ * Which footnote we are working with. (Count them)
+ *
+ * @since 20210922.1
+ *
+ * @return int
+ */
+function counter( ) {
+	global $counter;
+
+	$find_max = intval( 0 );
+	$target   = \kebbet\shortcode\footnotes\helpers\get_post_scope_id();
+
+	// Which footnote is this?
+	if ( isset( $counter[$target] ) ) { // False if first item.
+		$find_max = max( $counter[$target] );
+	}
+
+	// Update counter.
+	$number             = $find_max + intval( 1 );
+	$counter[$target][] = $number;
+
+	return intval( $number );
+}
+
+/**
  * Return markup for the `sup`-element.
  *
  * @since 20210922.1
@@ -44,37 +83,6 @@ function display( $number, $content ) {
 	$sup_content  = '<sup' . $sup_id . ' class="' . esc_attr( $sup_class ) . '">';
 	$sup_content .= '<a href="' . esc_url( $note_link ) . '"' . $link_title . '>' . esc_attr( $number ) . '</a>';
 	$sup_content .= '</sup>';
-
-	return $sup_content;
-}
-
-/**
- * Count number of footnotes and replace content between the shortcode tags.
- *
- * @param array  $attributes The attributes.
- * @param string $content    The content of each shortcode.
- * @return string
- */
-function replace_content_with_sup( $attributes, $content ) {
-
-	// Count number of notes in each post.
-	global $counter;
-
-	$note_number = intval( 1 );
-	$target      = \kebbet\shortcode\footnotes\helpers\get_post_scope_id();
-	$first_item  = ! isset( $counter[$target] );
-
-	// Which footnote is this?
-	if ( ! $first_item ) {
-		$find_max    = max( $counter[$target] );
-		$note_number = $find_max + intval( 1 );
-	}
-
-	// Update counter.
-	$counter[$target][] = $note_number;
-
-	// Markup for the sup-element.
-	$sup_content = display( $note_number, $content );
 
 	return $sup_content;
 }
