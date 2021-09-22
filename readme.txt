@@ -4,7 +4,7 @@ Tags: footnote,footnotes
 Requires at least: 5.8
 Tested up to: 5.8.1
 Requires PHP: 7.0
-Stable tag: 20210921.2
+Stable tag: 20210922.1
 License: ?
 
 Adds a shortcode that creates footnotes in the_content and a footnote list at the end of the_content.
@@ -27,6 +27,9 @@ Use like this `[fn]The footnote content[/fn]`. Automatic numbering without any o
 * `kebbet_shortcode_footnote_list_wrap_class` Modify the wrapper class for the list section.
 
 == Changelog ==
+= 20210922.1 =
+* Separation of logics.
+
 = 20210921.1 =
 * Stop execution of files on direct access.
 * Split plugin to chunks of code for better structure.
