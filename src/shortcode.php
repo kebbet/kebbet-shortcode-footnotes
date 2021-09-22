@@ -7,7 +7,7 @@
  * @author Erik Betshammar
  */
 
-namespace kebbet\shortcode\footnotes\shortcode;
+namespace kebbet\footnotes\shortcode;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -36,7 +36,7 @@ function counter( ) {
 	global $counter;
 
 	$find_max = intval( 0 );
-	$target   = \kebbet\shortcode\footnotes\helpers\get_post_scope_id();
+	$target   = \kebbet\footnotes\helpers\get_post_scope_id();
 
 	// Which footnote is this?
 	if ( isset( $counter[$target] ) ) { // False if first item.
@@ -61,21 +61,21 @@ function counter( ) {
  */
 function display( $number, $content ) {
 	$link_title  = '';
-	$note_link   = \kebbet\shortcode\footnotes\helpers\link_id( $number, true, true );
+	$note_link   = \kebbet\footnotes\helpers\link_id( $number, true, true );
 	$sup_class   = apply_filters( 'kebbet_shortcode_footnote_note_class', 'footnotes-footnote' );
 	$sup_id      = '';
 
 	// Add optional title attribute to link element.
-	if ( true === \kebbet\shortcode\footnotes\settings\title_attributes() ) {
+	if ( true === \kebbet\footnotes\settings\title_attributes() ) {
 		$content    = do_shortcode( $content ); // Render out any shortcode within the contents.
-		$content    = \kebbet\shortcode\footnotes\helpers\strip_paragraph( $content );
+		$content    = \kebbet\footnotes\helpers\strip_paragraph( $content );
 		$content    = str_replace( '"', '&quot;', strip_tags( $content ) );
 		$link_title = ' title="' . esc_attr( $content ) . '"';
 	}
 
 	// Add back links if enabled.
-	if ( true === \kebbet\shortcode\footnotes\settings\back_link() ) {
-		$source_id = \kebbet\shortcode\footnotes\helpers\link_id( $number, false, false );
+	if ( true === \kebbet\footnotes\settings\back_link() ) {
+		$source_id = \kebbet\footnotes\helpers\link_id( $number, false, false );
 		$sup_id    = ' id="' . esc_attr( $source_id ) . '"';
 	}
 

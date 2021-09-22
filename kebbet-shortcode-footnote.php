@@ -13,7 +13,7 @@
  * @author Erik Betshammar
  */
 
-namespace kebbet\shortcode\footnotes;
+namespace kebbet\footnotes;
 
 defined( 'ABSPATH' ) or exit;
 

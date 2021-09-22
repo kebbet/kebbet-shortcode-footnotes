@@ -7,7 +7,7 @@
  * @author Erik Betshammar
  */
 
-namespace kebbet\shortcode\footnotes\listing;
+namespace kebbet\footnotes\listing;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -35,11 +35,11 @@ function display( $content ) {
 	}
 
 	foreach ( $notes_content as $note_number => $footnote_content ) {
-		$footnote_content = \kebbet\shortcode\footnotes\helpers\strip_paragraph( $footnote_content );
-		$reference        = \kebbet\shortcode\footnotes\helpers\link_id( $note_number, true, false );
+		$footnote_content = \kebbet\footnotes\helpers\strip_paragraph( $footnote_content );
+		$reference        = \kebbet\footnotes\helpers\link_id( $note_number, true, false );
 
-		if ( true === \kebbet\shortcode\footnotes\settings\back_link() ) {
-			$source_link      = \kebbet\shortcode\footnotes\helpers\link_id( $note_number, false, true );
+		if ( true === \kebbet\footnotes\settings\back_link() ) {
+			$source_link      = \kebbet\footnotes\helpers\link_id( $note_number, false, true );
 			$footnote_content = '<a href="' . esc_url( $source_link ) . '">' . esc_attr( $back_symbol ) . '</a> ' . $footnote_content;
 		}
 
@@ -74,7 +74,7 @@ function get_post_footnotes() {
 	// Use $post since the_content is modified and the shortcodes are removed.
 	global $post;
 
-	$code  = \kebbet\shortcode\footnotes\settings\shortcode();
+	$code  = \kebbet\footnotes\settings\shortcode();
 	$notes = array();
 
 	if ( ! has_shortcode( $post->post_content, $code ) ) {
