@@ -23,7 +23,6 @@ function display( $content ) {
 	$title       = apply_filters( 'kebbet_shortcode_footnote_list_title', __( 'Footnotes', 'kebbet-shortcode-footnotes' ) );
 	$title_tag   = apply_filters( 'kebbet_shortcode_footnote_list_title_tag', 'h3' );
 	$wrap_class  = apply_filters( 'kebbet_shortcode_footnote_list_wrap_class', 'footnotes-wrap' );
-	$back_symbol = apply_filters( 'kebbet_shortcode_footnote_list_back_symbol', '&#8593;' );
 
 	if ( is_admin() ) {
 		return $content;
@@ -36,14 +35,16 @@ function display( $content ) {
 
 	foreach ( $notes_content as $note_number => $footnote_content ) {
 		$footnote_content = \kebbet\footnotes\helpers\strip_paragraph( $footnote_content );
+		$footnote_content = '<span>' . $footnote_content . '</span>';
 		$reference        = \kebbet\footnotes\helpers\link_id( $note_number, true, false );
 
 		if ( true === \kebbet\footnotes\settings\back_link() ) {
-			$source_link      = \kebbet\footnotes\helpers\link_id( $note_number, false, true );
-			$footnote_content = '<a href="' . esc_url( $source_link ) . '">' . esc_attr( $back_symbol ) . '</a> ' . $footnote_content;
+			$source_link       = \kebbet\footnotes\helpers\link_id( $note_number, false, true );
+			$wrap_class       .= ' back-links';
+			$footnote_content  = '<a class="back-link" href="' . esc_url( $source_link ) . '">' . esc_attr( $note_number ) . '</a> ' . $footnote_content;
 		}
 
-		$notes_list .= '<li id="' . esc_attr( $reference ) . '"><span>' . $footnote_content . '</span></li>';
+		$notes_list .= '<li id="' . esc_attr( $reference ) . '">' . $footnote_content . '</li>';
 	}
 
 	$list_content  = '<div class="' . esc_attr( $wrap_class ) . '">';
