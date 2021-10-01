@@ -28,6 +28,10 @@ function display( $content ) {
 		return $content;
 	}
 
+	if ( true === \kebbet\footnotes\settings\back_link() ) {
+		$wrap_class .= ' back-links';
+	}
+
 	$notes_content = get_post_footnotes();
 	if ( ! $notes_content ) {
 		return $content;
@@ -39,9 +43,8 @@ function display( $content ) {
 		$reference        = \kebbet\footnotes\helpers\link_id( $note_number, true, false );
 
 		if ( true === \kebbet\footnotes\settings\back_link() ) {
-			$source_link       = \kebbet\footnotes\helpers\link_id( $note_number, false, true );
-			$wrap_class       .= ' back-links';
-			$footnote_content  = '<a class="back-link" href="' . esc_url( $source_link ) . '">' . esc_attr( $note_number ) . '</a> ' . $footnote_content;
+			$source_link      = \kebbet\footnotes\helpers\link_id( $note_number, false, true );
+			$footnote_content = '<a class="back-link" href="' . esc_url( $source_link ) . '">' . esc_attr( $note_number ) . '</a> ' . $footnote_content;
 		}
 
 		$notes_list .= '<li id="' . esc_attr( $reference ) . '">' . $footnote_content . '</li>';
