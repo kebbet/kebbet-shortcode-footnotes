@@ -23,6 +23,7 @@ function display( $content ) {
 	$title       = apply_filters( 'kebbet_shortcode_footnote_list_title', __( 'Footnotes', 'kebbet-shortcode-footnotes' ) );
 	$title_tag   = apply_filters( 'kebbet_shortcode_footnote_list_title_tag', 'h3' );
 	$wrap_class  = apply_filters( 'kebbet_shortcode_footnote_list_wrap_class', 'footnotes-wrap' );
+	$list_tag    = 'ol';
 
 	if ( is_admin() ) {
 		return $content;
@@ -30,6 +31,7 @@ function display( $content ) {
 
 	if ( true === \kebbet\footnotes\settings\back_link() ) {
 		$wrap_class .= ' back-links';
+		$list_tag    = 'ul';
 	}
 
 	$notes_content = get_post_footnotes();
@@ -52,9 +54,9 @@ function display( $content ) {
 
 	$list_content  = '<div class="' . esc_attr( $wrap_class ) . '">';
 	$list_content .= '<' . $title_tag . '>' . $title . '</' . $title_tag . '>';
-	$list_content .= '<ol class="footnotes-list">';
+	$list_content .= '<' . $list_tag . ' class="footnotes-list">';
 	$list_content .= $notes_list;
-	$list_content .= '</ol>';
+	$list_content .= '</' . $list_tag . '>';
 	$list_content .= '</div>';
 
 	// Append the list.
