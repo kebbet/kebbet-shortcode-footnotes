@@ -8,6 +8,7 @@
  * Author URI:        https://verkan.se
  * Text Domain        kebbet-shortcode-footnotes
  * Requires at least: 5.8
+ * Update URI:        false
  *
  * @package kebbet-shortcode-footnotes
  * @author Erik Betshammar
