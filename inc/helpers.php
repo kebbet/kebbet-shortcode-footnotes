@@ -29,16 +29,16 @@ function link_id( $num, $up = false, $target = false ) {
 	$slug = apply_filters( 'kebbet_shortcode_footnote_slug', $slug );
 
 	if ( true === $up ) {
-		$string = $slug . '-' . esc_attr( $num );
+		$output = $slug . '-' . esc_attr( $num );
 	} else {
-		$string = $slug . '-id-' . esc_attr( $num );
+		$output = $slug . '-id-' . esc_attr( $num );
 	}
 
 	if ( true === $target ) {
-		$string = '#' . $string;
+		$output = '#' . $output;
 	}
 
-	return $string;
+	return $output;
 }
 
 /**
@@ -46,14 +46,14 @@ function link_id( $num, $up = false, $target = false ) {
  *
  * @since 20210920.1
  *
- * @param string $string The string to modify
+ * @param string $content The string to modify
  * @return string
  */
-function strip_paragraph( $string ) {
-	$string = mb_replace( '<p>', '', $string ); // Remove paragraphs in title and footnote list.
-	$string = mb_replace( '</p>', '<br/><br/>', $string ); // Remove paragraphs in title and footnote list.
+function strip_paragraph( $content ) {
+	$content = mb_replace( '<p>', '', $content ); // Remove paragraphs in title and footnote list.
+	$content = mb_replace( '</p>', '<br/><br/>', $content ); // Remove paragraphs in title and footnote list.
 
-	return $string;
+	return $content;
 }
 
 /**
@@ -72,41 +72,41 @@ function get_post_scope_id() {
  *
  * @source https://stackoverflow.com/a/3786018
  *
- * @param string $search Expression to search for.
- * @param string $replace Expression to replace with.
- * @param string $subject The string to search in.
+ * @param string $search_for Expression to search for.
+ * @param string $replace    Expression to replace with.
+ * @param string $subject    The string to search in.
  * @param int    $count
  * @return false|string
  */
-function mb_replace( $search, $replace, $subject, &$count=0 ) {
-	if (!is_array($search) && is_array($replace)) {
+function mb_replace( $search_for, $replace, $subject, &$count=0 ) {
+	if ( ! is_array( $search_for ) && is_array( $replace ) ) {
 		return false;
 	}
-	if (is_array($subject)) {
+	if ( is_array( $subject ) ) {
 		// call mb_replace for each single string in $subject
-		foreach ($subject as &$string) {
-			$string = &mb_replace($search, $replace, $string, $c);
-			$count += $c;
+		foreach ( $subject as &$content ) {
+			$content  = &mb_replace( $search_for, $replace, $content, $c );
+			$count   += $c;
 		}
-	} elseif (is_array($search)) {
-		if (!is_array($replace)) {
-			foreach ($search as &$string) {
-				$subject = mb_replace($string, $replace, $subject, $c);
-				$count += $c;
+	} elseif ( is_array( $search_for ) ) {
+		if ( ! is_array( $replace ) ) {
+			foreach ( $search_for as &$content ) {
+				$subject  = mb_replace( $content, $replace, $subject, $c );
+				$count   += $c;
 			}
 		} else {
-			$n = max(count($search), count($replace));
-			while ($n--) {
-				$subject = mb_replace(current($search), current($replace), $subject, $c);
+			$n = max( count( $search_for ), count( $replace ) );
+			while ( $n-- ) {
+				$subject = mb_replace( current( $search_for ), current( $replace ), $subject, $c );
 				$count += $c;
-				next($search);
-				next($replace);
+				next( $search_for );
+				next( $replace );
 			}
 		}
 	} else {
-		$parts   = mb_split(preg_quote($search), $subject);
-		$count   = count($parts)-1;
-		$subject = implode($replace, $parts);
+		$parts   = mb_split( preg_quote( $search_for ), $subject );
+		$count   = count( $parts ) - 1;
+		$subject = implode( $replace, $parts );
 	}
 	return $subject;
 }

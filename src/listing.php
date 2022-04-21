@@ -76,7 +76,6 @@ function display( $content ) {
  * @return false|array
  */
 function get_post_footnotes() {
-
 	// Use $post since the_content is modified and the shortcodes are removed.
 	global $post;
 
@@ -94,9 +93,9 @@ function get_post_footnotes() {
 			return false;
 		}
 
-		foreach ( $matches[5] as $key => $value ) {
+		foreach ( $matches[5] as $key => $content_value ) {
 			$num         = $key + 1;
-			$notes[$num] = $value;
+			$notes[$num] = $content_value;
 		}
 	}
 	return $notes;

@@ -19,9 +19,9 @@ defined( 'ABSPATH' ) or exit;
  * @return string
  */
 function shortcode() {
-	$default = 'fn';
-	$value   = apply_filters( 'kebbet_shortcode_footnote_name', $default );
-	return $value;
+	$default_code = 'fn';
+	$return_value = apply_filters( 'kebbet_shortcode_footnote_name', $default_code );
+	return $return_value;
 }
 
 /**
@@ -32,9 +32,9 @@ function shortcode() {
  * @return bool
  */
 function title_attributes() {
-	$default = true;
-	$value   = apply_filters( 'kebbet_shortcode_footnote_link_title', $default );
-	return boolval( $value );
+	$default_value = true;
+	$return_value  = apply_filters( 'kebbet_shortcode_footnote_link_title', $default_value );
+	return boolval( $return_value );
 }
 
 /**
@@ -45,7 +45,7 @@ function title_attributes() {
  * @return bool
  */
 function back_link() {
-	$default = false;
-	$value   = apply_filters( 'kebbet_shortcode_footnote_list_back_link', $default );
-	return boolval( $value );
+	$default_value = false;
+	$return_value  = apply_filters( 'kebbet_shortcode_footnote_list_back_link', $default_value );
+	return boolval( $return_value );
 }
